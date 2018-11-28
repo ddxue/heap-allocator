@@ -201,7 +201,7 @@ Strengthes:
 	minimum this allocator has generally high utilization performance.  
 
 --------------------------------------------------------------------------------------------
-
+ 
 REFERENCES
 <If any external resources (books, websites, people) were influential in shaping your design, 
 they should be properly cited here>
