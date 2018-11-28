@@ -15,37 +15,39 @@ Block Design:
 
 	The size field is the size of the payload in an allocated block. Note that the size 
 	field includes the footer because an allocated block does not use a footer. 
+    
 		Minimum Block Size = 12 bits (next & prev pointers and footer = 12 bits) 
 		Valid Block Sizes = 8 * i + 4, where i is an integer greater than or equal to 1
 
-  			------------------------------------------------- 
-			| 				  		|  	Prev     |	Curr	|	Header Layout
-			| 	 Size (30 bits) 	|	Alloc    |	Alloc 	|	(4 Bytes - 32 Bits)
-			| 						|	(1 Bit)  |	(1 Bit)	|   
-bp ------> 	-------------------------------------------------  -  -  -  8 Byte Alignment
-   /|\		|												|
-	|		|				  Next Pointer 					|	
-	|		|			 	   (4 Bytes)		 			|
-	|		-------------------------------------------------
-	|		|												|
-	|		|				  Prev Pointer					|
-	|		|				   (4 Bytes)					|
-  	|		-------------------------------------------------  -  -  -  8 Byte Alignment
-  Size		|												|
-(payload in	|  				   								|
-an allocated|  				   	  ...						|
-  block)	|  				   								|
-	|		|  				   								|
-	|		|  				   								|
-	|		------------------------------------------------- -  -  -   8 Byte Alignment
-	|		| 				  		|  	Prev     |	Curr	|	Footer Layout
-	|		| 	 Size (30 bits) 	|	Alloc    |	Alloc 	|	(4 Bytes - 32 Bits)
-   \|/		| 						|	(1 Bit)  |	(1 Bit)	|	
-   ---		-------------------------------------------------
-			|												|
-			|				Next Block Header				|
-			|				 								|
-  			------------------------------------------------- -  -  -   8 Byte Alignment
+  		------------------------------------------------- 
+		| 				  		|  	Prev     |	Curr	|	Header Layout
+		| 	 Size (30 bits) 	|	Alloc    |	Alloc 	|	(4 Bytes - 32 Bits)
+		| 						|	(1 Bit)  |	(1 Bit)	|   
+bp ---> -------------------------------------------------  -  -  -  8 Byte Alignment
+   /|\	|												|
+	|	|				  Next Pointer 					|	
+	|	|			 	   (4 Bytes)		 			|
+	|	-------------------------------------------------
+	|	|												|
+	|	|				  Prev Pointer					|
+	|	|				   (4 Bytes)					|
+  	|	-------------------------------------------------  -  -  -  8 Byte Alignment
+  Size	|												|
+payload |                                               |
+in an   |  			   				    				|
+allocate|  		    		  ...						|
+block   |  				   								|
+	|	|  				   								|
+	|	|  				   								|
+	|	------------------------------------------------- -  -  -   8 Byte Alignment
+	|	| 				  		|  	Prev     |	Curr	|	Footer Layout
+	|	| 	 Size (30 bits) 	|	Alloc    |	Alloc 	|	(4 Bytes - 32 Bits)
+   \|/	| 						|	(1 Bit)  |	(1 Bit)	|	
+   ---	-------------------------------------------------
+		|												|
+		|				Next Block Header				|
+		|				 								|
+  		------------------------------------------------- -  -  -   8 Byte Alignment
 
 Managing Free Blocks: Segregated Lists
 	Free blocks were managed in an array of segregated lists (doubly linked lists) of 
